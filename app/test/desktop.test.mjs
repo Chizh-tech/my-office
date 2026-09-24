@@ -13,6 +13,12 @@ const root = fileURLToPath(new URL('../../', import.meta.url));
 const origin = 'http://127.0.0.1:19000';
 const flush = () => new Promise(resolveFlush => setImmediate(resolveFlush));
 
+test('desktop entry does not block Electron readiness with top-level await', async () => {
+  const entry = await readFile(new URL('../src/desktop.mjs', import.meta.url), 'utf8');
+  assert.doesNotMatch(entry, /^\s*await\s+runDesktop/m);
+  assert.match(entry, /runDesktop\([\s\S]*\)\.catch\(/);
+});
+
 function electronDouble({ locked = true, loadError = null } = {}) {
   const app = new EventEmitter();
   app.requestSingleInstanceLock = () => locked;

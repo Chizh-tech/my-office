@@ -10,7 +10,8 @@ app.setName('My Office');
 app.setAppUserModelId('local.myoffice.desktop');
 app.setPath('userData', resolve(app.getPath('appData'), 'My Office'));
 
-await runDesktop({ app, BrowserWindow, Menu, dialog, session }, {
+// Electron must finish loading the entry module before app.whenReady() can resolve.
+runDesktop({ app, BrowserWindow, Menu, dialog, session }, {
   launch: () => launchOffice(desktopOptions({
     packaged: app.isPackaged,
     resourcesPath: process.resourcesPath,
@@ -19,4 +20,7 @@ await runDesktop({ app, BrowserWindow, Menu, dialog, session }, {
   icon: app.isPackaged
     ? resolve(process.resourcesPath, 'my-office.png')
     : resolve(developmentRoot, 'app', '.local', 'desktop-build', 'my-office.png'),
+}).catch(error => {
+  dialog.showErrorBox('My Office', `Desktop initialization failed: ${error.message}`);
+  app.exit(1);
 });
