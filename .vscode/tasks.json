@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build My Office desktop",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--prefix",
+				".\\app",
+				"run",
+				"build:desktop"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

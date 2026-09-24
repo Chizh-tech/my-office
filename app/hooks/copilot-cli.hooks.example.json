@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "sessionStart", "copilot-cli"], "timeoutSec": 2 }],
+    "userPromptSubmitted": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "userPromptSubmitted", "copilot-cli"], "timeoutSec": 2 }],
+    "preToolUse": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "preToolUse", "copilot-cli"], "timeoutSec": 2 }],
+    "postToolUse": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "postToolUse", "copilot-cli"], "timeoutSec": 2 }],
+    "preCompact": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "preCompact", "copilot-cli"], "timeoutSec": 2 }],
+    "subagentStart": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "subagentStart", "copilot-cli"], "timeoutSec": 2 }],
+    "subagentStop": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "subagentStop", "copilot-cli"], "timeoutSec": 2 }],
+    "agentStop": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "agentStop", "copilot-cli"], "timeoutSec": 2 }],
+    "sessionEnd": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "sessionEnd", "copilot-cli"], "timeoutSec": 2 }],
+    "postToolUseFailure": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "postToolUseFailure", "copilot-cli"], "timeoutSec": 2 }],
+    "errorOccurred": [{ "type": "command", "exec": "node", "args": ["__MY_OFFICE_BRIDGE__", "errorOccurred", "copilot-cli"], "timeoutSec": 2 }]
+  }
+}

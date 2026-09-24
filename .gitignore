@@ -1,0 +1,8 @@
+desktop/
+app/node_modules/
+app/.local/
+
+*.log
+.env
+.env.*
+!.env.example

@@ -1,0 +1,50 @@
+{
+  "name": "my-office-local",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "main": "src/desktop.mjs",
+  "description": "Local metadata-only Copilot office desktop app",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "generate:hooks": "node scripts/generate-hooks.mjs",
+    "predesktop": "node scripts/prepare-desktop.mjs",
+    "desktop": "electron .",
+    "build:desktop": "node scripts/prepare-desktop.mjs && electron-builder --win portable --x64 --publish never",
+    "start": "node src/server.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "lucide": "1.44.0"
+  },
+  "devDependencies": {
+    "electron": "44.4.1",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "local.myoffice.desktop",
+    "productName": "My Office",
+    "directories": {
+      "output": "../desktop"
+    },
+    "files": [
+      "src/**/*",
+      "public/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      { "from": ".local/desktop-build/office-location.json", "to": "office-location.json" },
+      { "from": ".local/desktop-build/my-office.png", "to": "my-office.png" }
+    ],
+    "win": {
+      "icon": ".local/desktop-build/my-office.ico",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "My Office.exe",
+      "requestExecutionLevel": "user"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>My Office · Chi 的工作空间</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/vendor/lucide.js" defer></script>
+  <script src="/app.js" type="module"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="My Office 首页"><span class="brand-mark"><i data-lucide="blocks"></i></span><span>MY OFFICE<span class="brand-sub">CHI'S WORKSPACE</span></span></a>
+    <div class="sidebar-label">YOUR WORKSPACE / 工作空间</div>
+    <nav id="navigation" aria-label="任务分类"></nav>
+    <div class="sidebar-bottom">
+      <div class="connection-fact"><i data-lucide="monitor"></i><div><strong>本机试用版</strong><span>127.0.0.1 · <span id="app-version">v…</span></span></div></div>
+      <div class="fact-row"><span title="过去 5 分钟收到事件的主会话，不代表在线连接">近期真实会话</span><b id="real-count">0</b></div>
+      <div class="fact-row"><span>Copilot Bridge</span><span id="bridge-status">连接中</span></div>
+      <div class="fact-row"><span>外部写入</span><span>未启用</span></div>
+      <button id="shutdown" class="quiet-button"><i data-lucide="power"></i>停止本机服务</button>
+      <div class="sidebar-stamp">LOCAL ONLY · NO CLOUD</div>
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">工作空间 <span>/</span> <strong id="breadcrumb">全部任务</strong></div><div class="topbar-right"><span id="connection" class="connection"><span class="status-dot"></span>连接中</span><time id="clock"></time><span class="profile vp-profile" title="Chi · VP">VP</span></div></header>
+    <main>
+      <section class="page-heading"><div><div class="eyebrow">PEOPLE, PLACES & WORK.</div><h1>我的办公室<span class="preview-badge">FLOOR PLAN</span></h1><p id="overview">载入真实观测</p></div></section>
+
+      <section class="metrics" aria-label="任务汇总">
+        <button class="metric" data-status="all"><span class="metric-label"><i data-lucide="layers"></i>全部任务</span><span id="count-all" class="metric-value">0</span><span class="metric-meta">真实执行实例</span></button>
+        <button class="metric" data-status="in_progress"><span class="metric-label"><i data-lucide="activity"></i>近期活动</span><span id="count-in_progress" class="metric-value mint">0</span><span class="metric-meta">不等于正在执行</span></button>
+        <button class="metric" data-status="unknown"><span class="metric-label"><i data-lucide="circle-help"></i>状态未确认</span><span id="count-unknown" class="metric-value coral">0</span><span class="metric-meta">过期 · 断线 · 未知</span></button>
+        <button class="metric" data-status="turn_ended"><span class="metric-label"><i data-lucide="square"></i>本轮结束</span><span id="count-turn_ended" class="metric-value">0</span><span class="metric-meta">不代表业务完成</span></button>
+      </section>
+
+      <div id="profile-storage-warning" class="profile-storage-warning" role="alert" hidden><span id="profile-storage-error"></span><button id="profile-recover" class="text-button">清除人物介绍存储</button></div>
+      <section class="vp-observer" aria-labelledby="vp-title">
+        <div class="vp-owner"><span id="vp-portrait" class="vp-portrait"></span><div><div class="eyebrow">CHI'S OFFICE / VP</div><h2 id="vp-title">我的办公室</h2><p>只读显示 Copilot hooks 提供的真实状态。</p></div></div>
+        <div class="vp-observer-body"><div class="vp-observer-heading"><strong id="vp-observation-summary" role="status">载入 Copilot 状态</strong><span class="observer-tag">只读观测</span></div><p>办公室不提供批准、拒绝、请进、已阅或排队操作。所有审批及回复均以 VS Code 中的 Copilot 为准；当前 hooks 未提供明确审批状态时，这里不会推断或显示“等待审批”。</p></div>
+      </section>
+      <section class="workbench">
+        <div class="work-main">
+          <div class="work-toolbar"><div class="view-tabs" role="tablist" aria-label="工作视图"><button id="office-tab" role="tab" aria-selected="true" aria-controls="office-view"><i data-lucide="armchair"></i>办公室</button><button id="list-tab" role="tab" aria-selected="false" aria-controls="list-view"><i data-lucide="list"></i>任务列表</button></div></div>
+          <div class="query-row"><label class="search-box"><i data-lucide="search"></i><input id="search" type="search" placeholder="搜索项目、客户端或人物" aria-label="搜索项目、客户端或人物" maxlength="100"></label><span id="filter-summary">全部任务</span><button id="clear-filters" class="text-button" hidden>清除筛选</button></div>
+          <div id="office-view" role="tabpanel" aria-labelledby="office-tab">
+            <div class="scene-caption"><span><span class="status-dot"></span>01 / OFFICE FLOOR PLAN</span><span>COPILOT · 真实观测</span></div>
+            <div class="office-scene"><canvas id="office-canvas" width="960" height="600" aria-label="像素办公室平面图：Chi 的 VP 办公室、Copilot 观测区、独立工位、公共工位和休息区。VP 是你的固定角色，不计入执行实例；Agent 位置只来自 Copilot hooks 可确认的状态。" aria-describedby="scene-hint"></canvas><span class="vp-owner-label" aria-label="Chi 的 VP 办公室">CHI · VP</span><div id="agent-hotspots"></div></div>
+            <div class="scene-footer"><span id="scene-count">0 个执行实例</span><span class="legend"><span class="legend-dot mint-bg"></span>近期活动<span class="legend-dot gray-bg"></span>本轮结束 / 未确认</span></div>
+            <p id="scene-hint" class="scene-hint">点击人物查看 Copilot 观测记录 · 位置与动作仅为状态示意，且只由 hooks 状态决定，不代表审批、实时执行或任务进度。</p>
+          </div>
+          <div id="list-view" role="tabpanel" aria-labelledby="list-tab" hidden><div id="task-list"></div></div>
+        </div>
+        <aside id="detail" class="detail-panel" aria-label="人物与任务详情"></aside>
+      </section>
+
+      <section class="roster-dock" aria-labelledby="roster-title">
+        <div class="roster-heading"><h2 id="roster-title">人物名册 <span id="roster-count" class="small-count">0</span></h2><span class="roster-hint">选择人物查看档案 · 昵称和职责可自定义</span><div class="roster-controls"><button id="roster-prev" class="icon-button" aria-label="前一组人物" title="前一组人物"><i data-lucide="chevron-left"></i></button><button id="roster-next" class="icon-button" aria-label="后一组人物" title="后一组人物"><i data-lucide="chevron-right"></i></button></div></div>
+        <div id="agent-strip" class="agent-strip" aria-label="人物卡片"></div>
+      </section>
+
+      <section class="bottom-grid"><div class="attention-section"><div class="section-heading"><h2><span class="section-index">02</span>观测说明</h2><span class="section-note">以原 Copilot 聊天为准</span></div><p class="detail-note">这里仅展示真实 hooks 事件；不推断权限批准、审核结果或业务完成。是否需要你处理，请查看原 Copilot 聊天。</p></div><div class="timeline-section"><div class="section-heading"><h2><span class="section-index">03</span>活动时间线</h2><select id="timeline-filter" aria-label="时间线范围"><option value="all">全部任务</option><option value="selected">当前任务</option></select></div><div id="timeline"></div></div></section>
+      <footer class="page-footer"><span>MY OFFICE / PIXEL EDITION / LOCAL PREVIEW</span><span>像素是表现，状态以记录为准 · Copilot hooks · 无外部写入</span></footer>
+    </main>
+  </div>
+
+  <dialog id="profile-dialog" aria-labelledby="profile-title">
+    <form id="profile-form">
+      <div class="dialog-heading"><div><div class="eyebrow">CHARACTER PROFILE / LOCAL NOTES</div><h2 id="profile-title">编辑人物介绍</h2></div><button type="button" id="close-profile" class="icon-button" aria-label="关闭人物介绍"><i data-lucide="x"></i></button></div>
+      <div class="form-fields">
+        <p id="profile-original" class="context-hint"></p>
+        <label>显示昵称 <span class="field-note">最多 32 字；留空使用原始名称</span><input name="nickname" maxlength="32" autocomplete="off"></label>
+        <label>职责介绍 <span class="field-note">最多 160 字；这是你填写的展示备注</span><textarea name="role" rows="4" maxlength="160" placeholder="例如：负责波纹数据检查与分析结论复核"></textarea></label>
+        <p class="context-hint">仅在当前客户端、当前本机地址保存昵称与职责，不上传到服务端，不保存任务摘录。不会改变 Agent 的角色设定、权限或实际任务。</p>
+        <p id="profile-error" class="form-error" role="alert"></p>
+      </div>
+      <div class="dialog-footer"><button id="profile-reset" class="button secondary" type="button">恢复默认介绍</button><button class="button primary" type="submit"><i data-lucide="check"></i>保存人物介绍</button></div>
+      <div class="profile-storage-actions"><button id="profile-clear-all" class="text-button" type="button">清除全部本机人物介绍</button><span>浏览器版与桌面版、不同端口不会自动同步</span></div>
+    </form>
+  </dialog>
+  <dialog id="workstream-dialog" aria-labelledby="workstream-title">
+    <form id="workstream-form">
+      <div class="dialog-heading"><div><div class="eyebrow">SESSION CLASSIFICATION</div><h2 id="workstream-title">修改当前会话分类</h2></div><button type="button" id="close-workstream" class="icon-button" aria-label="关闭分类设置"><i data-lucide="x"></i></button></div>
+      <div class="form-fields">
+        <p id="workstream-session" class="context-hint"></p>
+        <label>工作分类 <span class="field-note">手动选择优先于自动推荐</span>
+          <select name="workstream">
+            <option value="auto">自动推荐</option>
+            <option value="engineering">DM 工程</option>
+            <option value="reports">周报 / 月报</option>
+            <option value="knowledge">知识整理</option>
+            <option value="automation">代码与自动化</option>
+          </select>
+        </label>
+        <p id="workstream-recommendation" class="context-hint"></p>
+        <p class="context-hint">设置保存在本机服务并绑定当前 Copilot 会话；同一会话的后续请求和子 Agent 共用手动分类。不会改变 Agent 的行为或权限。</p>
+        <p id="workstream-error" class="form-error" role="alert"></p>
+      </div>
+      <div class="dialog-footer"><span></span><button class="button primary" type="submit"><i data-lucide="check"></i>保存分类</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
