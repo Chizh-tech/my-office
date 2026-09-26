@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">My Office architecture</title>
+  <desc id="desc">Copilot clients emit hook events to a local bridge, which sends metadata to the My Office local service and interface.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#17152a" flood-opacity=".15"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6 0 12Z" fill="#7456d8"/>
+    </marker>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#ded8f4" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="#f8f6ff"/>
+  <rect width="1200" height="520" rx="28" fill="url(#grid)" opacity=".55"/>
+  <text x="60" y="70" fill="#27223d" font-family="Segoe UI, sans-serif" font-size="30" font-weight="700">真实事件如何走进像素办公室</text>
+  <text x="60" y="105" fill="#6c6680" font-family="Segoe UI, sans-serif" font-size="17">所有组件都运行在当前 Windows 用户的本机环境中</text>
+
+  <g filter="url(#shadow)">
+    <rect x="60" y="160" width="250" height="240" rx="20" fill="#fff" stroke="#d8d0f0" stroke-width="2"/>
+    <rect x="60" y="160" width="250" height="55" rx="20" fill="#30294f"/>
+    <path d="M60 195V215H310V195" fill="#30294f"/>
+    <text x="88" y="196" fill="#fff" font-family="Segoe UI, sans-serif" font-size="20" font-weight="700">Copilot 客户端</text>
+    <rect x="88" y="248" width="194" height="48" rx="10" fill="#f1eefb"/>
+    <text x="110" y="278" fill="#433b64" font-family="Segoe UI, sans-serif" font-size="17">VS Code Chat</text>
+    <rect x="88" y="316" width="194" height="48" rx="10" fill="#f1eefb"/>
+    <text x="110" y="346" fill="#433b64" font-family="Segoe UI, sans-serif" font-size="17">Copilot CLI / SDK</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="475" y="160" width="250" height="240" rx="20" fill="#fff" stroke="#d8d0f0" stroke-width="2"/>
+    <rect x="475" y="160" width="250" height="55" rx="20" fill="#7456d8"/>
+    <path d="M475 195V215H725V195" fill="#7456d8"/>
+    <text x="503" y="196" fill="#fff" font-family="Segoe UI, sans-serif" font-size="20" font-weight="700">本机事件桥接</text>
+    <text x="503" y="260" fill="#27223d" font-family="Consolas, monospace" font-size="16">bridge-hook.mjs</text>
+    <circle cx="519" cy="306" r="6" fill="#46aa79"/>
+    <text x="537" y="312" fill="#514a65" font-family="Segoe UI, sans-serif" font-size="16">校验事件白名单</text>
+    <circle cx="519" cy="344" r="6" fill="#46aa79"/>
+    <text x="537" y="350" fill="#514a65" font-family="Segoe UI, sans-serif" font-size="16">脱敏标识与分类</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="890" y="160" width="250" height="240" rx="20" fill="#fff" stroke="#d8d0f0" stroke-width="2"/>
+    <rect x="890" y="160" width="250" height="55" rx="20" fill="#d6a640"/>
+    <path d="M890 195V215H1140V195" fill="#d6a640"/>
+    <text x="918" y="196" fill="#30260f" font-family="Segoe UI, sans-serif" font-size="20" font-weight="700">My Office</text>
+    <text x="918" y="260" fill="#27223d" font-family="Segoe UI, sans-serif" font-size="17" font-weight="700">127.0.0.1</text>
+    <text x="918" y="295" fill="#514a65" font-family="Segoe UI, sans-serif" font-size="16">内存状态 + SSE</text>
+    <text x="918" y="330" fill="#514a65" font-family="Segoe UI, sans-serif" font-size="16">像素办公室界面</text>
+    <text x="918" y="365" fill="#514a65" font-family="Segoe UI, sans-serif" font-size="16">桌面版 / 浏览器版</text>
+  </g>
+
+  <path d="M330 280H445" fill="none" stroke="#7456d8" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M745 280H860" fill="none" stroke="#7456d8" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text x="342" y="258" fill="#6c6680" font-family="Segoe UI, sans-serif" font-size="14">hook 事件</text>
+  <text x="762" y="258" fill="#6c6680" font-family="Segoe UI, sans-serif" font-size="14">仅元数据</text>
+
+  <rect x="334" y="444" width="532" height="42" rx="21" fill="#ece8fa"/>
+  <text x="600" y="471" text-anchor="middle" fill="#51457e" font-family="Segoe UI, sans-serif" font-size="16" font-weight="600">不连接 ADO、M365、Obsidian 或任何云端 My Office 服务</text>
+</svg>
